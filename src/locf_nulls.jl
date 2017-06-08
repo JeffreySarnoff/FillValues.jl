@@ -43,6 +43,12 @@ function locf_values(vec::V, null_at::I) where I<:AbstractVector{Int} where V<:A
     return cumsum(deltas)
 end
 
+function index_nulls(vec::V) where V<:AbstractVector{T} where T<:AbstractFloat
+    idxs = 1:length(vec)
+    nans = map(isnull, view(vec,idxs))
+    return idxs[nans]
+end   
+
 """
     index_first_nonnull(vec)
 returns 0 if all elements of vec are Null
