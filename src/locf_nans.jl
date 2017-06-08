@@ -88,7 +88,7 @@ end
 """
     index_first_nonnan(vec)
 
-returns 0 if all elements of vec are NaN
+returns 0 iff all elements of vec are NaN
 """
 function index_first_nonnan(vec::V) where V<:AbstractVector{F} where F<:AbstractFloat
    result = 0
@@ -104,7 +104,7 @@ end
 """
     index_final_nonnan(vec)
 
-returns 0 if all elements of vec are NaN
+returns 0 iff all elements of vec are NaN
 """
 function index_final_nonnan(vec::V) where V<:AbstractVector{F} where F<:AbstractFloat
    result = 0
