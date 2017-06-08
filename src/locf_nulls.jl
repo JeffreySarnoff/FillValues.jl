@@ -61,7 +61,7 @@ function locf_values(vec::V, nulls_at::I) where I<:AbstractVector{Int} where V<:
     return cumsum(deltas)
 end
 
-function index_nulls(vec::V) where V<:AbstractVector{T} where T<:AbstractFloat
+function index_nulls(vec::V) where V<:AbstractVector{N} where N<:Nullable{T} where T<:Number
     idxs = 1:length(vec)
     nans = map(isnull, view(vec,idxs))
     return idxs[nans]
