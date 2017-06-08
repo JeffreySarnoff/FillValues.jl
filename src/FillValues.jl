@@ -1,4 +1,4 @@
-module LOCF
+module FillValues
 
 export locf, locf!
 
