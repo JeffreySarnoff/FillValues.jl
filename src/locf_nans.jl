@@ -38,7 +38,7 @@ function locf!(vec::V) where V<:AbstractVector{T} where T<:AbstractFloat
     return nothing
 end
 
-function locf_values{T<:Real}(vec::V, nan_at::I) where I<:AbstractVector{Int} where V<:AbstractVector{T} where T<:AbstractFloat
+function locf_values(vec::V, nan_at::I) where I<:AbstractVector{Int} where V<:AbstractVector{T} where T<:AbstractFloat
     augment = 0
     deltas = [nan_at[1]-1, diff(nan_at)...]
 
