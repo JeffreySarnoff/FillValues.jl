@@ -39,7 +39,7 @@ function locf!(vec::V) where V<:AbstractVector{N} where N<:Nullable{T} where T<:
        idx = index_final_nonnull(view(vec, vecidxs))
        if idx != 0
            vec[idx+1:end] = vec[idx]
-       end     
+       end
     end
 
    if any(isnull.(vec))
@@ -47,9 +47,9 @@ function locf!(vec::V) where V<:AbstractVector{N} where N<:Nullable{T} where T<:
        nulls_at = index_nulls(vec)
        if n > length(nulls_at)
            vec[nulls_at] = locf_values(view(vec, vecidxs), view(nulls_at,1:length(nulls_at)))
-       end  
+       end
     end
-    
+
     return nothing
 end
 
@@ -65,8 +65,8 @@ function locf_values(vec::V, nulls_at::I) where I<:AbstractVector{Int} where V<:
             deltas[i] += augment
             augment = 0
         end
-    end  
-    
+    end
+
     return cumsum(deltas)
 end
 
@@ -74,7 +74,7 @@ function index_nulls(vec::V) where V<:AbstractVector{N} where N<:Nullable{T} whe
     idxs = 1:length(vec)
     nulls = map(isnull, view(vec,idxs))
     return idxs[nulls]
-end   
+end
 
 """
     index_first_nonnull(vec)
