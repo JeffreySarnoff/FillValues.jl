@@ -1,21 +1,45 @@
 """
-   locf(vec) is "last observation carry forward"
-overwrite NaNs [Nulls] with the prior non-NaN [non-Null] value
-If vec starts with NaNs [Nulls], those values will be overwritten
+   locf(vec [, fillback]) is "last observation carry forward"
+
+Overwrite NaNs [Nulls] with the prior non-NaN [non-Null] values.
+
+If fillback=true (default) and vec starts with NaNs [Nulls],
+vec starts with NaNs [Nulls], those values will be overwritten
 with the first non-NaN [non-Null] value.
 """
+function locf(vec::V, fillback::Bool=true) where V<:AbstractVector{T} where T<:AbstractFloat
+   idx = index_first_nonnan(vec)
+   v = locf(vec)
+   if idx > 1
+      v[1:idx-1] = NaN
+   end
+   return v
+end
+
 function locf(vec::V) where V<:AbstractVector{T} where T<:AbstractFloat
    v = copy(vec)
    locf!(v)
    return v
 end
 
+
 """
-   locf!(vec) is "last observation carry forward"
-overwrite NaNs [Nulls] with the prior non-NaN [non-Null] value
-If vec starts with NaNs [Nulls], those values will be overwritten
-with the first non-NaN [non-Null] value.
+   locf!(vec [, fillback]) is "last observation carry forward" in place
+
+Overwrite NaNs [Nulls] with the prior non-NaN [non-Null] values
+
+If fillback=true (default) and vec starts with NaNs [Nulls],
+those values will be overwritten with the first non-NaN [non-Null] value.
 """
+function locf!(vec::V, fillback::Bool=true) where V<:AbstractVector{T} where T<:AbstractFloat
+   idx = index_first_nonnan(vec)
+   locf!(vec)
+   if idx > 1
+      vec[1:idx-1] = NaN
+   end
+   return nothing
+end
+
 function locf!(vec::V) where V<:AbstractVector{T} where T<:AbstractFloat
     n = length(vec)
     vecidxs = 1:n
