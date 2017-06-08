@@ -14,7 +14,7 @@ function locf(vec::V) where V<:AbstractVector{N} where N<:Nullable{T} where T<:N
 end
 
 function locf!(vec::V, fillback::Bool) where V<:AbstractVector{N} where N<:Nullable{T} where T<:Number
-   idx = index_first_nonnan(vec)
+   idx = index_first_nonnull(vec)
    locf!(vec)
    if !fillback && idx > 1
       vec[1:idx-1] = Nullable{T}()
@@ -27,11 +27,11 @@ function locf!(vec::V) where V<:AbstractVector{N} where N<:Nullable{T} where T<:
     vecidxs = 1:n
 
     if isnull(vec[1])
-       idx = index_first_nonnan(view(vec, vecidxs))
+       idx = index_first_nonnull(view(vec, vecidxs))
        vec[1:idx-1] = vec[idx]
     end
     if isnull(vec[end])
-       idx = index_final_nonnan(view(vec, vecidxs))
+       idx = index_final_nonnull(view(vec, vecidxs))
        vec[idx+1:end] = vec[idx]
     end
 
@@ -63,8 +63,8 @@ end
 
 function index_nulls(vec::V) where V<:AbstractVector{N} where N<:Nullable{T} where T<:Number
     idxs = 1:length(vec)
-    nans = map(isnull, view(vec,idxs))
-    return idxs[nans]
+    nulls = map(isnull, view(vec,idxs))
+    return idxs[nulls]
 end   
 
 """
