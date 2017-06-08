@@ -72,7 +72,7 @@ end
 """
     index_first_nonnull(vec)
 
-returns 0 if all elements of vec are Null
+returns 0 iff all elements of vec are Null
 """
 function index_first_nonnull(vec::V) where V<:AbstractVector{N} where N<:Nullable{T} where T<:Number
    result = 0
@@ -88,7 +88,7 @@ end
 """
     index_final_nonnull(vec)
 
-returns 0 if all elements of vec are Null
+returns 0 iff all elements of vec are Null
 """
 function index_final_nonnull(vec::V) where V<:AbstractVector{N} where N<:Nullable{T} where T<:Number
    result = 0
