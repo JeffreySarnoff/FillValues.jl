@@ -1,7 +1,25 @@
+function locf(vec::V, fillback::Bool=true) where V<:AbstractVector{N} where N<:Nullable{T} where T<:Number
+   idx = index_first_nonnull(vec)
+   v = locf(vec)
+   if idx > 1
+      v[1:idx-1] = Nullable{T})()
+   end
+   return v
+end
+
 function locf(vec::V) where V<:AbstractVector{N} where N<:Nullable{T} where T<:Number
    v = copy(vec)
    locf!(v)
    return v
+end
+
+function locf!(vec::V, fillback::Bool=true) where V<:AbstractVector{N} where N<:Nullable{T} where T<:Number
+   idx = index_first_nonnan(vec)
+   locf!(vec)
+   if idx > 1
+      vec[1:idx-1] = Nullable{T}()
+   end
+   return nothing
 end
 
 function locf!(vec::V) where V<:AbstractVector{N} where N<:Nullable{T} where T<:Number
