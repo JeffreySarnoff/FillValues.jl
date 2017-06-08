@@ -26,7 +26,7 @@ function locf!(vec::V) where V<:AbstractVector{N} where N<:Nullable{T} where T<:
     return nothing
 end
 
-function locf_values{T<:Real}(vec::V, null_at::I) where I<:AbstractVector{Int} where V<:AbstractVector{N} where N<:Nullable{T} where T<:Number
+function locf_values(vec::V, null_at::I) where I<:AbstractVector{Int} where V<:AbstractVector{N} where N<:Nullable{T} where T<:Number
     augment = 0
     deltas = [null_at[1]-1, diff(null_at)...]
 
