@@ -55,8 +55,15 @@ function locf_values(vec::V, nan_at::I) where I<:AbstractVector{Int} where V<:Ab
     return cumsum(deltas)
 end
 
+function index_nans(vec::V) where V<:AbstractVector{T} where T<:AbstractFloat
+    idxs = 1:length(vec)
+    nans = map(isnan, view(vec,idxs))
+    return idxs[nans]
+end
+
 """
     index_first_nonnan(vec)
+
 returns 0 if all elements of vec are NaN
 """
 function index_first_nonnan(vec::V) where V<:AbstractVector{F} where F<:AbstractFloat
@@ -72,6 +79,7 @@ end
 
 """
     index_final_nonnan(vec)
+
 returns 0 if all elements of vec are NaN
 """
 function index_final_nonnan(vec::V) where V<:AbstractVector{F} where F<:AbstractFloat
