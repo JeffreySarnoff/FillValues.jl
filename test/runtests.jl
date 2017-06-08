@@ -1,5 +1,5 @@
+using FillValues
 using Base.Test
-using LOCF
 
 novalue = NaN
 a = [1.0, 2.0, 3.0]
