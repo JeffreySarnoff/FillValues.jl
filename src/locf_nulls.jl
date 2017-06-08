@@ -45,7 +45,9 @@ function locf!(vec::V) where V<:AbstractVector{N} where N<:Nullable{T} where T<:
    if any(isnull.(vec))
        n = length(vec)
        nulls_at = index_nulls(vec)
-       vec[nulls_at] = locf_values(view(vec, vecidxs), view(nulls_at,1:length(nulls_at)))
+       if n > length(nulls_at)
+           vec[nulls_at] = locf_values(view(vec, vecidxs), view(nulls_at,1:length(nulls_at)))
+       end  
     end
     
     return nothing
