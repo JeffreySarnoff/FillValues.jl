@@ -1,4 +1,4 @@
-using FillValues
+using ImputeNaNs
 using Base.Test
 
 novalue = NaN
