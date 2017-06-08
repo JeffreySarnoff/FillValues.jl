@@ -46,14 +46,18 @@ function locf!(vec::V) where V<:AbstractVector{T} where T<:AbstractFloat
 
     if isnan(vec[1])
        idx = index_first_nonnan(view(vec, vecidxs))
-       vec[1:idx-1] = vec[idx]
+       if idx != 0
+           vec[1:idx-1] = vec[idx]
+       end  
     end
     if isnan(vec[end])
        idx = index_final_nonnan(view(vec, vecidxs))
-       vec[idx+1:end] = vec[idx]
+       if idx != 0
+          vec[idx+1:end] = vec[idx]
+       end  
     end
 
-   if any(isnan.(vec))
+    if any(isnan.(vec))
        n = length(vec)
        nans_at = index_nans(vec)
        vec[nans_at] = locf_values(view(vec, vecidxs), view(nans_at,1:length(nans_at)))
