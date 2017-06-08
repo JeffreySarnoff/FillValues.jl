@@ -1,4 +1,4 @@
-module FillValues
+module ImputeNaNs
 
 export locf, locf!
 
