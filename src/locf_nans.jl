@@ -40,7 +40,7 @@ end
 
 function locf_values(vec::V, nans_at::I) where I<:AbstractVector{Int} where V<:AbstractVector{T} where T<:AbstractFloat
     augment = 0
-    deltas = [nan_at[1]-1, diff(nans_at)...]
+    deltas = [nans_at[1]-1, diff(nans_at)...]
 
     for i in 2:length(deltas)
         if deltas[i] == 1
