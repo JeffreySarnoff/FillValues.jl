@@ -64,7 +64,7 @@ function locf!(vec::V) where V<:AbstractVector{T} where T<:AbstractFloat
            vec[nans_at] = locf_values(view(vec, vecidxs), view(nans_at,1:length(nans_at)))
       end
     end
-    
+
     return nothing
 end
 
@@ -80,8 +80,8 @@ function locf_values(vec::V, nans_at::I) where I<:AbstractVector{Int} where V<:A
             deltas[i] += augment
             augment = 0
         end
-    end  
-    
+    end
+
     return cumsum(deltas)
 end
 
