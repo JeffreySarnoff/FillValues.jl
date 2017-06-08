@@ -17,7 +17,7 @@ function locf!(vec::V, fillback::Bool) where V<:AbstractVector{N} where N<:Nulla
    idx = index_first_nonnull(vec)
    if !fillback && idx > 1
       vecstart = vec[1:idx-1]
-   end   
+   end
    locf!(vec)
    if !fillback && idx > 1
        vec[1:idx-1] = vecstart
