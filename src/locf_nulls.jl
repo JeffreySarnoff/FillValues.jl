@@ -19,16 +19,16 @@ function locf!(vec::V) where V<:AbstractVector{N} where N<:Nullable{T} where T<:
 
    if any(isnull.(vec))
        n = length(vec)
-       null_at = index_nulls(vec)
-       vec[null_at] = locf_values(view(vec, vecidxs), view(null_at,1:length(null_at)))
+       nulls_at = index_nulls(vec)
+       vec[nulls_at] = locf_values(view(vec, vecidxs), view(nulls_at,1:length(nulls_at)))
     end
     
     return nothing
 end
 
-function locf_values(vec::V, null_at::I) where I<:AbstractVector{Int} where V<:AbstractVector{N} where N<:Nullable{T} where T<:Number
+function locf_values(vec::V, nulls_at::I) where I<:AbstractVector{Int} where V<:AbstractVector{N} where N<:Nullable{T} where T<:Number
     augment = 0
-    deltas = [null_at[1]-1, diff(null_at)...]
+    deltas = [nulls_at[1]-1, diff(nulls_at)...]
 
     for i in 2:length(deltas)
         if deltas[i] == 1
