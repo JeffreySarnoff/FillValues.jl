@@ -2,17 +2,22 @@ using FillValues
 using Base.Test
 
 novalue = NaN
-a = [1.0, 2.0, 3.0]
-b = [1.0, novalue, 3.0]
-c = [1.0, 2.0, novalue]
-d = [novalue, 2.0, 3.0]
+a = [novalue]
+b = [novalue, novalue]
+c = [1.0, 2.0, 3.0]
+d = [1.0, novalue, 3.0]
+e = [1.0, 2.0, novalue]
+f = [novalue, 2.0, 3.0]
 
-@test locf(a) == a
-@test locf(b) == [1.0, 1.0, 3.0]
-@test locf(c) == [1.0, 2.0, 2.0]
-@test locf(d) == [2.0, 2.0, 3.0]
-@test locf(d, true) == [2.0, 2.0, 3.0]
-@test isnan(locf(d, false)[1])
+@test isnan(locf(a)[1])
+@test isnan(locf(b)[1])
+@test isnan(locf(b)[2])
+@test locf(c) == c
+@test locf(d) == [1.0, 1.0, 3.0]
+@test locf(e) == [1.0, 2.0, 2.0]
+@test locf(f) == [2.0, 2.0, 3.0]
+@test locf(f, true) == [2.0, 2.0, 3.0]
+@test isnan(locf(f, false)[1])
 
 novalue = Nullable{Float64}()
 a = [Nullable{Float64}(1.0), Nullable{Float64}(2.0), Nullable{Float64}(3.0)]
