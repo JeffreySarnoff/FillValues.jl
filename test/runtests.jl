@@ -24,6 +24,6 @@ d = [novalue, Nullable{Float64}(2.0), Nullable{Float64}(3.0)]
 @test all(locf(b) .=== [Nullable{Float64}(1.0), Nullable{Float64}(1.0), Nullable{Float64}(3.0)])
 @test all(locf(c) .=== [Nullable{Float64}(1.0), Nullable{Float64}(2.0), Nullable{Float64}(2.0)])
 @test all(locf(d) .=== [Nullable{Float64}(2.0), Nullable{Float64}(2.0), Nullable{Float64}(3.0)])
-@test all(locf(d, true) .=== [Nullable{Float64}(2.0), Nullable{Float64}(2.0), Nullable{Float64}(3.0)])
+@test !isnull(locf(d, true)[1])
 @test isnull(locf(d, false)[1])
 
