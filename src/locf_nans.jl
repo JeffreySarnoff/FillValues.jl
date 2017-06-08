@@ -32,7 +32,7 @@ function locf!(vec::V) where V<:AbstractVector{T} where T<:AbstractFloat
    if any(isnan.(vec))
        n = length(vec)
        nans_at = index_nans(vec)
-       vec[nans_at] = locf_values(view(vec, vecidxs), nans_at)
+       vec[nans_at] = locf_values(view(vec, vecidxs), view(nans_at,1:length(nans_at)))
     end
     
     return nothing
