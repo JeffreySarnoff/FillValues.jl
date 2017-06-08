@@ -2,7 +2,7 @@ function locf(vec::V, fillback::Bool) where V<:AbstractVector{N} where N<:Nullab
    idx = index_first_nonnull(vec)
    v = locf(vec)
    if !fillback && idx > 1
-      v[1:idx-1] = Nullable{T}()
+      v[1:idx-1] = vec[1:idx-1]
    end
    return v
 end
@@ -15,9 +15,11 @@ end
 
 function locf!(vec::V, fillback::Bool) where V<:AbstractVector{N} where N<:Nullable{T} where T<:Number
    idx = index_first_nonnull(vec)
+   if !fillback && idx > 1
+      vecstart = vec[1:idx-1]
    locf!(vec)
    if !fillback && idx > 1
-      vec[1:idx-1] = Nullable{T}()
+       vec[1:idx-1] = vecstart
    end
    return nothing
 end
