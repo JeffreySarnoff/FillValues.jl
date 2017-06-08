@@ -15,7 +15,7 @@ d = [novalue, 2.0, 3.0]
 @test isnan(locf(d, false)[1])
 
 novalue = Nullable{Float64}()
-a = [Nullable{Float64}(2.0), Nullable{Float64}(2.0), Nullable{Float64}(2.0)]
+a = [Nullable{Float64}(1.0), Nullable{Float64}(2.0), Nullable{Float64}(3.0)]
 b = [Nullable{Float64}(1.0), novalue, Nullable{Float64}(3.0)]
 c = [Nullable{Float64}(1.0), Nullable{Float64}(2.0), novalue]
 d = [novalue, Nullable{Float64}(2.0), Nullable{Float64}(3.0)]
