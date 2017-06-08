@@ -2,7 +2,7 @@ function locf(vec::V, fillback::Bool=true) where V<:AbstractVector{N} where N<:N
    idx = index_first_nonnull(vec)
    v = locf(vec)
    if idx > 1
-      v[1:idx-1] = Nullable{T})()
+      v[1:idx-1] = Nullable{T}()
    end
    return v
 end
