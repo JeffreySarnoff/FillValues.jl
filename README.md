@@ -1,4 +1,4 @@
-# FillValues
+# ImputeNaNs.jl
 
 ### fills NaN or Null values using last observation carry forward (locf)
 
@@ -16,7 +16,7 @@ locf, locf!
 # use
 
 ```julia
-using FillValues
+using ImputeNaNs
 
 vec = [NaN, 1.0, NaN, 2.0, NaN, NaN]
 locf(vec)
