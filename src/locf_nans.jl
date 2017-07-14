@@ -7,7 +7,7 @@ If fillback=true (default) and vec starts with NaNs [Nulls],
 vec starts with NaNs [Nulls], those values will be overwritten
 with the first non-NaN [non-Null] value.
 """
-function locf(vec::V, fillback::Bool) where V<:AbstractVector{T} where T<:AbstractFloat
+function locf(vec::AbstractFloatVec, fillback::Bool)
    idx = index_first_nonnan(vec)
    v = locf(vec)
    if fillback==false && idx > 1
@@ -16,7 +16,7 @@ function locf(vec::V, fillback::Bool) where V<:AbstractVector{T} where T<:Abstra
    return v
 end
 
-function locf(vec::V) where V<:AbstractVector{T} where T<:AbstractFloat
+function locf(vec::AbstractFloatVec)
    v = copy(vec)
    locf!(v)
    return v
@@ -31,7 +31,7 @@ Overwrite NaNs [Nulls] with the prior non-NaN [non-Null] values
 If fillback=true (default) and vec starts with NaNs [Nulls],
 those values will be overwritten with the first non-NaN [non-Null] value.
 """
-function locf!(vec::V, fillback::Bool) where V<:AbstractVector{T} where T<:AbstractFloat
+function locf!(vec::AbstractFloatVec, fillback::Bool)
    idx = index_first_nonnan(vec)
    locf!(vec)
    if fillback==false && dx > 1
@@ -40,7 +40,7 @@ function locf!(vec::V, fillback::Bool) where V<:AbstractVector{T} where T<:Abstr
    return nothing
 end
 
-function locf!(vec::V) where V<:AbstractVector{T} where T<:AbstractFloat
+function locf!(vec::AbstractFloatVec)
     n = length(vec)
     vecidxs = 1:n
 
@@ -68,7 +68,7 @@ function locf!(vec::V) where V<:AbstractVector{T} where T<:AbstractFloat
     return nothing
 end
 
-function locf_values(vec::V, nans_at::I) where I<:AbstractVector{Int} where V<:AbstractVector{T} where T<:AbstractFloat
+function locf_values(vec::AbstractFloatVec, nans_at::AbstractIntVec)
     augment = 0
     deltas = [nans_at[1]-1, diff(nans_at)...]
 
@@ -85,7 +85,7 @@ function locf_values(vec::V, nans_at::I) where I<:AbstractVector{Int} where V<:A
     return cumsum(deltas)
 end
 
-function index_nans(vec::V) where V<:AbstractVector{T} where T<:AbstractFloat
+function index_nans(vec::AbstractFloatVec)
     idxs = 1:length(vec)
     nans = map(isnan, view(vec,idxs))
     return idxs[nans]
@@ -96,7 +96,7 @@ end
 
 returns 0 iff all elements of vec are NaN
 """
-function index_first_nonnan(vec::V) where V<:AbstractVector{F} where F<:AbstractFloat
+function index_first_nonnan(vec::AbstractFloatVec)
    result = 0
    for i in 1:length(vec)
       if !isnan(vec[i])
@@ -112,7 +112,7 @@ end
 
 returns 0 iff all elements of vec are NaN
 """
-function index_final_nonnan(vec::V) where V<:AbstractVector{F} where F<:AbstractFloat
+function index_final_nonnan(vec::AbstractFloatVec)
    result = 0
    for i in length(vec):-1:1
       if !isnan(vec[i])
