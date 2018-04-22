@@ -1,3 +1,44 @@
+const OneToZero = Base.OneTo(0)
+
+locf(data::AbstractArray{T,N}) where{N,T<:IntFloat} = data
+
+function locf(::Type{Missing}, data::AbstractArray{T,N}) where {N,T<:IntFloat}
+    indices = findmissing(data)
+    return if isempty(indicies)
+               data
+           else
+               locf(Missing, data, indicies)
+           end
+end
+
+function locf(::Type{Missing}, data::AbstractArray{T,1}, indicies) where {T} 
+    # cannot carry forward into data[bgn] 
+    if indicies[1] === 1
+        indicies = length(indicies) === 1 ? OneToZero : indicies[2:end]
+    end
+   
+    while !isempty(indices)
+        prior_indicies = indicies - 1
+        data[indices] = data[prior_indicies]
+        indices = findmissings(data)
+    end
+    return data
+end
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
 """
    locf(vec [, fillback]) is "last observation carry forward"
 
