@@ -1,7 +1,10 @@
 module ImputationAlgamest
 
 export locf, locf!, lerp, qlerp,
-       findmissings, findpresents, removemissings
+       findmissings, findpresents, removemissings,
+       findnothings, findsomethings, removenothings,
+       findNaNs, findnonNaNs, removeNaNs,
+       isnothing, issomething
 
 const Ints   = Union{Int32, Int64}
 const Floats = Union{Float32, Float64}
