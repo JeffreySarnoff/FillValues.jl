@@ -6,8 +6,6 @@ export locf, locf!, lerp, qlerp,
        findNaNs, findnonNaNs, removeNaNs,
        isnothing, issomething
 
-const MissingNothing = Union{Missing, Nothing}
-
 const IntFloat = Union{Signed, AbstractFloat}
 
 const Ints   = Union{Int32, Int64}
@@ -16,8 +14,7 @@ const Floats = Union{Float32, Float64}
 const MaybeInts    = Union{Missing, Ints}
 const MaybeFloats  = Union{Missing, Floats}
 
-const ExtentInts   = Union{Nothing, Ints}
-const ExtentFloats = Union{Nothing, Floats}
+const MaybeNothing = Union{Missing, Nothing}
 
 include("indicies.jl")  #  index non-values
 include("locf.jl")      #  last observation carrys forward 
