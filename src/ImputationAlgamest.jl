@@ -9,11 +9,11 @@ export locf, locf!, lerp, qlerp,
 const Ints   = Union{Int32, Int64}
 const Floats = Union{Float32, Float64}
 
-const MaybeInt    = Union{Missing, Ints}
-const MaybeFloat  = Union{Missing, Floats}
+const MaybeInts    = Union{Missing, Ints}
+const MaybeFloats  = Union{Missing, Floats}
 
-const MaybeInts   = AbstractVector{MaybeInt}
-const MaybeFloats = AbstractVector{MaybeFloat}
+const ExtentInts    = Union{Nothing, Ints}
+const ExtentFloats  = Union{Nothing, Floats}
 
 include("indicies.jl")  #  index non-values
 include("locf.jl")      #  last observation carrys forward 
