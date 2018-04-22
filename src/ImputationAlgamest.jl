@@ -11,7 +11,9 @@ const MaybeFloat  = Union{Missing, Floats}
 const MaybeInts   = AbstractVector{MaybeInt}
 const MaybeFloats = AbstractVector{MaybeFloat}
 
-include("locf.jl")
-include("lerp.jl")
+include("indicies.jl")  #  index non-values
+include("locf.jl")      #  last observation carrys forward 
+include("lerp.jl")      #  simple and weighted interpolations
+include("getset.jl")    #  datavector's access and restorage smoothified
 
 end # ImputationAlgamest
