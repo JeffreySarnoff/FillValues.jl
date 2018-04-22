@@ -3,6 +3,9 @@
 isnothing(x::Nothing) = true
 isnothing(x::T) where {T} = false
 
+issomething(x::Nothing) = false
+issomething(x::T) where {T} = true
+
 isNaN(x::Number) = isnan(x)
 isNaN(x::T) where {T} = false
           
