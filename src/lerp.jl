@@ -1,9 +1,17 @@
 # from Tim Holy (Compose/color.jl)
-# Linear-interpolation in [a, b] where x is in [0,1],
+# linear interpolation in [a, b] where x is in [0,1],
 # or coerced to be if not.
-function lerp(x::T, a::T, b::T) where {T<:Number}
+# !@_{}_@! UncheckedPrecondition: a <= b
+function lerp01(x::T, a::T, b::T) where {T<:Number}
     a + (b - a) * max(min(x, 1.0), 0.0)
 end
+
+# linear interpolation in [a, b]
+# !@_{}_@! UncheckedPrecondition: a <= b
+function lerp(x::T, a::T, b::T) where {T<:Number}
+    a + (b - a) * x
+end
+
 # Clamping limits the values allowable
 # !@_{}_@! UncheckedPrecondition: a <= b
 function clamp(x::T, a::T, b::T) where {T<:Number}
