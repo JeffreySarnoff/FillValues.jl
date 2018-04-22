@@ -1,3 +1,18 @@
+# from Tim Holy (Compose/color.jl)
+# Linear-interpolation in [a, b] where x is in [0,1],
+# or coerced to be if not.
+function lerp(x::T, a::T, b::T) where {T<:Number}
+    a + (b - a) * max(min(x, 1.0), 0.0)
+end
+# Clamping limits the values allowable
+# !@_{}_@! UncheckedPrecondition: a <= b
+function clamp(x::T, a::T, b::T) where {T<:Number}
+   a <= x <= b && return x
+   x < a ? a : b
+end
+
+
+
 function locf(vec::NullableNumVec, fillback::Bool)
    idx = index_first_nonnull(vec)
    v = locf(vec)
