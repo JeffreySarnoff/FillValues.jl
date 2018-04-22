@@ -10,9 +10,9 @@ findmissings(x::AbstractArray{T,N}) where {N,T} = findall(x .=== missing)
 findnothings(x::AbstractArray{T,N}) where {N,T} = findall(x .=== nothing)
 findNaNs(x::AbstractArray{T,N})     where {N,T} = findall(map(isNaN,x))
 
-findpresents(x::AbstractArray{T,N})  where {N,T} = findall(x .!== missing)
-findsomethigs(x::AbstractArray{T,N}) where {N,T} = findall(x .!== nothing)
-findnonNaNs(x::AbstractArray{T,N})   where {N,T} = findall(map(!isNaN,x))
+findpresents(x::AbstractArray{T,N})   where {N,T} = findall(x .!== missing)
+findsomethings(x::AbstractArray{T,N}) where {N,T} = findall(x .!== nothing)
+findnonNaNs(x::AbstractArray{T,N})    where {N,T} = findall(map(!isNaN,x))
 
 for T in (:Int8, :Int16, :Int32, :Int64, :Int128,
           :UInt8, :UInt16, :UInt32, :UInt64, :UInt128,
