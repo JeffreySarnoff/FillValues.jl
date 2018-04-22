@@ -34,7 +34,7 @@ for T in (:Int8, :Int16, :Int32, :Int64, :Int128,
      function removeNaNs(x::AbstractArray{Union{Nothing,$T},N}) where {N}
         result::$T = filter(!isNaN, x)
         return result
-     end                    
+     end
   end
 end
 
