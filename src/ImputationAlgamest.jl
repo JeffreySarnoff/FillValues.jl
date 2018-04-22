@@ -6,6 +6,8 @@ export locf, locf!, lerp, qlerp,
        findNaNs, findnonNaNs, removeNaNs,
        isnothing, issomething
 
+const MissingNothing = Union{Missing, Nothing}
+
 const IntFloat = Union{Signed, AbstractFloat}
 
 const Ints   = Union{Int32, Int64}
