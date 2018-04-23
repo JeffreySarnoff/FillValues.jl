@@ -1,8 +1,8 @@
-# ImputeNaNs.jl
+# ImputationAlgamest.jl
 
-### fills NaN or Null values using last observation carry forward (locf)
+### fills `missing` or `nothing` values using last observation carry forward (locf)
 
-#### Copyright © 2017 by Jeffrey Sarnoff.  Released under the MIT License.
+#### Copyright © 2017-2018 by Jeffrey Sarnoff.  Released under the MIT License.
 
 -----
 
@@ -16,15 +16,18 @@ locf, locf!
 # use
 
 ```julia
-using ImputeNaNs
+using ImputationAlgamest
 
-vec = [NaN, 1.0, NaN, 2.0, NaN, NaN]
-locf(vec)
-# [1.0, 1.0, 1.0, 2.0, 2.0, 2.0]
-locf(vec, false)
+locf([1.0, missing, 2.0, missing, missing, 3.0])
+# [1.0, 1.0, 2.0, 2.0, 2.0, 3.0]
+
+locf([1.0, missing, 2.0, missing, missing])
+# [1.0, 1.0, 2.0, 2.0, 2.0]
+
+locf([missing, 2.0, missing, missing, 3.0])
+# [missing, 1.0, 2.0, 2.0, 2.0, 3.0]
+
+# locf(vec, false)
 # [NaN, 1.0, 1.0, 2.0, 2.0, 2.0]
 ```
 
-# note
-
-Also works with Nullables.
