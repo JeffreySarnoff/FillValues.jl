@@ -1,6 +1,6 @@
 # ImputationAlgamest.jl
 
-### overwrites `missing` or `nothing` or `NaN` values
+## overwrites `missing` or `nothing` or `NaN` values
 - last observation carry forward (locf)
 
 ### supports 1D, 2D, 3D, 4D, 5D, 6D AbstractArrays
