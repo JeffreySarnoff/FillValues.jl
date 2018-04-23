@@ -1,6 +1,6 @@
 const OneToZero = Base.OneTo(0)
 
-for A in (:Missing, :Nothing)
+for A in (:Missing, :Nothing, :Float64, :Float32, :Float16)
   @eval begin    
     function locf(::Type{$A}, data::AbstractArray{T,1}) where {T<:IntFloat}
         indices = findall($A, data)
