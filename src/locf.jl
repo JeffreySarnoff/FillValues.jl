@@ -1,8 +1,6 @@
 const OneToZero = Base.OneTo(0)
 
-locf(data::AbstractArray{T,N}) where{N,T<:IntFloat} = data
-
-function locf(::Type{Missing}, data::AbstractArray{T,N}) where {N,T<:IntFloat}
+function locf(::Type{Missing}, data::AbstractArray{T,1}) where {T<:IntFloat}
     indices = findmissing(data)
     return if isempty(indicies)
                data
@@ -25,7 +23,16 @@ function locf(::Type{Missing}, data::AbstractArray{T,1}, indicies) where {T}
     return data
 end
 
-   
+
+function locf(::Type{Missing}, data::AbstractArray{T,N}) where {N,T<:IntFloat}
+    for ax=1:N
+        data[:,ax] = locf(Missing, data[:,ax])
+    end
+    return data
+end
+
+
+
 
 
 
