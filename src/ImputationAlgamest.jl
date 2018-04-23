@@ -16,6 +16,9 @@ const MaybeFloats  = Union{Missing, Floats}
 
 const MaybeNothing = Union{Missing, Nothing}
 
+include("EndpointRanges.jl")
+using .EndpointRanges
+
 include("indicies.jl")  #  index non-values
 include("locf.jl")      #  last observation carrys forward 
 include("lerp.jl")      #  simple and weighted interpolations
