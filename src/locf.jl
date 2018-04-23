@@ -55,6 +55,26 @@ for A in (:Missing, :Nothing, :Float64, :Float32, :Float16)
         end
         return data
     end
-    
+
+    function locf(::Type{$A}, data::AbstractArray{T,5}) where {T<:IntFloat}
+        axs1, axs2, axs3, axs4, axs5 = axes(data)
+        dataarray = Array{T,4}(undef, axs1.stop, axs2.stop, axs3.stop, axs4.stop)
+        for ax in axs5
+            dataarray[:,:,:,:] = dataarray[axs1, axs2, axs3, axs4, ax]
+            data[axs1, axs2, axs3, axs4, ax] = locf($A, dataarray)
+        end
+        return data
+    end
+
+    function locf(::Type{$A}, data::AbstractArray{T,6}) where {T<:IntFloat}
+        axs1, axs2, axs3, axs4, axs5, axs6 = axes(data)
+        dataarray = Array{T,5}(undef, axs1.stop, axs2.stop, axs3.stop, axs4.stop, axs5.stop)
+        for ax in axs6
+            dataarray[:,:,:,:,:] = dataarray[axs1, axs2, axs3, axs4, axs5, ax]
+            data[axs1, axs2, axs3, axs4, axs5, ax] = locf($A, dataarray)
+        end
+        return data
+    end
+
   end
 end
