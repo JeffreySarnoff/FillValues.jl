@@ -11,6 +11,10 @@ isNaN(x::T) where {T} = false
  
 Base.findall(::Type{Missing}, x::AbstractArray{T,N}) = findmissings(x)
 Base.findall(::Type{Nothing}, x::AbstractArray{T,N}) = findnothings(x)
+Base.findlast(::Type{Missing}, x::AbstractArray{T,N}) = findlast(missing, x)
+Base.findlast(::Type{Nothing}, x::AbstractArray{T,N}) = findlast(nothing, x)
+Base.findfirst(::Type{Missing}, x::AbstractArray{T,N}) = findfirst(missing, x)
+Base.findfirst(::Type{Nothing}, x::AbstractArray{T,N}) = findfirst(nothing, x)
 
 findmissings(x::AbstractArray{T,N}) where {N,T} = findall(x .=== missing)
 findnothings(x::AbstractArray{T,N}) where {N,T} = findall(x .=== nothing)
