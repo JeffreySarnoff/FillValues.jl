@@ -6,7 +6,7 @@ isnothing(x::T) where {T} = false
 issomething(x::Nothing) = false
 issomething(x::T) where {T} = true
 
-isNaN(x::Number) = isnan(x)
+isNaN(x::AbstractFloat) = isnan(x)
 isNaN(x::T) where {T} = false
  
 Base.findall(::Type{Missing}, x::AbstractArray{T,N}) = findmissings(x)
@@ -15,6 +15,14 @@ Base.findlast(::Type{Missing}, x::AbstractArray{T,N}) = findlast(missing, x)
 Base.findlast(::Type{Nothing}, x::AbstractArray{T,N}) = findlast(nothing, x)
 Base.findfirst(::Type{Missing}, x::AbstractArray{T,N}) = findfirst(missing, x)
 Base.findfirst(::Type{Nothing}, x::AbstractArray{T,N}) = findfirst(nothing, x)
+
+Base.findall(::Type{Float64}, x::AbstractArray{T,N}) = findNaNs(x)
+Base.findall(::Type{Float32}, x::AbstractArray{T,N}) = findNaNs(x)
+Base.findlast(::Type{Float64}, x::AbstractArray{T,N}) = findlast(isnan, x)
+Base.findlast(::Type{Float32}, x::AbstractArray{T,N}) = findlast(isnan, x)
+Base.findfirst(::Type{Float64}, x::AbstractArray{T,N}) = findfirst(isnan, x)
+Base.findfirst(::Type{Float32}, x::AbstractArray{T,N}) = findfirst(isnan, x)
+
 
 findmissings(x::AbstractArray{T,N}) where {N,T} = findall(x .=== missing)
 findnothings(x::AbstractArray{T,N}) where {N,T} = findall(x .=== nothing)
