@@ -1,35 +1,44 @@
 const OneToZero = Base.OneTo(0)
 
-function locf(::Type{Missing}, data::AbstractArray{T,1}) where {T<:IntFloat}
-    indices = findmissing(data)
-    return if isempty(indicies)
-               data
-           else
-               locf(Missing, data, indicies)
-           end
-end
-
-function locf(::Type{Missing}, data::AbstractArray{T,1}, indicies) where {T} 
-    # cannot carry forward into data[bgn] 
-    if indicies[1] === 1
-        indicies = length(indicies) === 1 ? OneToZero : indicies[2:end]
+for (Q,F) in ((:Missing, :findmissings), (:Nothing, :findnothings))
+  @eval begin    
+    function locf(::Type{$Q}, data::AbstractArray{T,1}) where {T<:IntFloat}
+        indices = $F(data)
+        return if isempty(indicies)
+                   data
+               else
+                   locf($Q, data, indicies)
+               end
     end
+
+    function locf(::Type{$Q}, data::AbstractArray{T,1}, indicies) where {T} 
+        # cannot carry forward into data[bgn] 
+        if indicies[1] === 1
+            indicies = length(indicies) === 1 ? OneToZero : indicies[2:end]
+        end
    
-    while !isempty(indices)
-        prior_indicies = indicies - 1
-        data[indices] = data[prior_indicies]
-        indices = findmissings(data)
+        while !isempty(indices)
+           prior_indicies = indicies - 1
+           data[indices] = data[prior_indicies]
+           indices = $F(data)
+        end
+        return data
     end
-    return data
+
+    function locf(::Type{$Q}, data::AbstractArray{T,2}) where {T<:IntFloat}
+        axs1, axs2 = axes(data)
+        datavec = Vector{T}(undef, axs1.stop)
+        for ax in axs2
+            datavec[:] = data[axs1, ax]
+            isnothing(findfirst($F, datavec)) && continue
+            data[axs1, ax] = locf($Q, datavec)
+        end
+        return data
+    end
+  end
 end
 
 
-function locf(::Type{Missing}, data::AbstractArray{T,N}) where {N,T<:IntFloat}
-    for ax=1:N
-        data[:,ax] = locf(Missing, data[:,ax])
-    end
-    return data
-end
 
 
 
@@ -38,12 +47,7 @@ end
 
 
 
-
-
-
-
-
-
+#=
 
 
 """
@@ -58,7 +62,7 @@ with the first non-NaN [non-Null] value.
 function locf(vec::AbstractFloatVec, fillback::Bool)
    idx = index_first_nonnan(vec)
    v = locf(vec)
-   if fillback==false && idx > 1
+   if fillback==false && idxhttps://github.com/JuliaArrays/EndpointRanges.jl > 1
       v[1:idx-1] = NaN
    end
    return v
@@ -170,3 +174,5 @@ function index_final_nonnan(vec::AbstractFloatVec)
    end
    return result
 end
+
+=#
