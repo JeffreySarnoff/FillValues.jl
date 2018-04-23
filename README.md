@@ -1,6 +1,7 @@
 # ImputationAlgamest.jl
 
-### fills `missing` or `nothing` values using last observation carry forward (locf)
+### fills `missing`s or `nothing`s or `NaN`s by last observation carry forward (locf)
+### use with AbstractArrays with 1,2,3,4,5,6 axes.
 
 #### Copyright © 2017-2018 by Jeffrey Sarnoff.  Released under the MIT License.
 
