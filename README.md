@@ -14,7 +14,7 @@
 
 # exports
 
-locf, locf!
+locf
 
 # use
 
