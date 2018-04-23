@@ -1,17 +1,17 @@
 const OneToZero = Base.OneTo(0)
 
-for (Q,F) in ((:Missing, :findmissings), (:Nothing, :findnothings))
+for A in (:Missing, :Nothing)
   @eval begin    
-    function locf(::Type{$Q}, data::AbstractArray{T,1}) where {T<:IntFloat}
-        indices = $F(data)
+    function locf(::Type{$A}, data::AbstractArray{T,1}) where {T<:IntFloat}
+        indices = findall($A, data)
         return if isempty(indicies)
                    data
                else
-                   locf($Q, data, indicies)
+                   locf($A, data, indicies)
                end
     end
 
-    function locf(::Type{$Q}, data::AbstractArray{T,1}, indicies) where {T} 
+    function locf(::Type{$A}, data::AbstractArray{T,1}, indicies) where {T} 
         # cannot carry forward into data[bgn] 
         if indicies[1] === 1
             indicies = length(indicies) === 1 ? OneToZero : indicies[2:end]
@@ -20,18 +20,18 @@ for (Q,F) in ((:Missing, :findmissings), (:Nothing, :findnothings))
         while !isempty(indices)
            prior_indicies = indicies - 1
            data[indices] = data[prior_indicies]
-           indices = $F(data)
+           indices = findall($A, data)
         end
         return data
     end
 
-    function locf(::Type{$Q}, data::AbstractArray{T,2}) where {T<:IntFloat}
+    function locf(::Type{$A}, data::AbstractArray{T,2}) where {T<:IntFloat}
         axs1, axs2 = axes(data)
         datavec = Vector{T}(undef, axs1.stop)
         for ax in axs2
             datavec[:] = data[axs1, ax]
-            isnothing(findfirst($F, datavec)) && continue
-            data[axs1, ax] = locf($Q, datavec)
+            isnothing(findfirst($A, datavec)) && continue
+            data[axs1, ax] = locf($A, datavec)
         end
         return data
     end
